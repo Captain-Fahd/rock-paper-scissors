@@ -1,10 +1,18 @@
+/*Variables*/ 
 let play;
+let humanChoice;
+let humanScore = 0;
+let computerChoice;
+let computerScore = 0;
+let roundNum = prompt("How Many Rounds?");
+
+/*Function logic*/
+//Human function
 function getHumanChoice(play){
    return play = prompt("Pick your play!");
 };
 
-let yp = getHumanChoice(play).toLowerCase();
-
+//Computer Function
 function getRandomNumber(max){
     return Math.floor(Math.random() * max);
 }
@@ -22,21 +30,32 @@ function getComputerChoice(){
     }
 }
 
-let pcc = getComputerChoice();
 
-function winner(){
-    console.log("You picked:" + yp);
-    console.log("Computer picked:" + pcc);
-    if ((pcc == "Rock" && yp == "paper") || (pcc == "Paper" && yp == "scissors") ||
-    (pcc == "Scissors" && yp == "rock")){
+//Game logic
+function playRound(humanChoice, computerChoice){
+    humanChoice = getHumanChoice(play).toLowerCase();
+    computerChoice = getComputerChoice().toLowerCase();
+    console.log("You picked:" + humanChoice);
+    console.log("Computer picked:" + computerChoice);
+    if ((computerChoice == "rock" && humanChoice == "paper") || (computerChoice == "paper" && humanChoice == "scissors") ||
+    (computerChoice == "scissors" && humanChoice == "rock")){
         console.log("Human Wins");
-    } else if (pcc == yp){
+        humanScore++;
+    } else if (computerChoice == humanChoice){
         console.log("Draw!");
-    } else if(yp != "rock" && yp!= "paper" && yp != "scissors"){
+    } else if(humanChoice != "rock" && humanChoice != "paper" && humanChoice != "scissors"){
         console.log("invalid input")
     }  else {
         console.log("Computer Wins!");
+        computerScore++;
     }
+    console.log("Score: ")
+    console.log("Computer: " + computerScore + " Human: " + humanScore);
 }
 
-winner();
+function playGame(roundNum){
+    for (let i = 1; i <= roundNum; i++){
+        playRound();
+    }
+}
+playGame(roundNum);
